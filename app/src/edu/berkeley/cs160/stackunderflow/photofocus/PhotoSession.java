@@ -19,10 +19,13 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 
-public class PhotoSession extends Activity {
+public class PhotoSession extends BaseActivity {
 	
 	private GoogleMap myMap;
 	public double currentLat;
@@ -56,13 +59,15 @@ public class PhotoSession extends Activity {
 
 			myMap.setMyLocationEnabled(true);
 		}
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.photo_session, menu);
-		return true;
+		
+        final Button button = (Button) findViewById(R.id.button_end_photo_session);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	Intent myIntent = new Intent(PhotoSession.this, PhotoSessionComplete.class);
+//            	myIntent.putExtra("key", value); //Optional parameters
+            	PhotoSession.this.startActivity(myIntent);
+            }
+        });
 	}
 	
 	public void getMyLocation() {

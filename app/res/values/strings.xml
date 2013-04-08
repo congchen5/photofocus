@@ -4,8 +4,10 @@
     <string name="app_name">photofocus</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_photo_session">PhotoSessionActivity</string>
-    <string name="title_activity_map_photo">MapPhotoActivity</string>
+    <string name="title_activity_main">Photo Focus</string>
+    <string name="title_activity_photo_session">Photo Session</string>
+    <string name="title_activity_map_photo">Nearby</string>
+    <string name="menu_my_photos">My Photos</string>
+    <string name="title_activity_photo_session_complete">PhotoSessionComplete</string>
 
 </resources>

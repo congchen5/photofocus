@@ -26,17 +26,12 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/camera_icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
             android:name="edu.berkeley.cs160.stackunderflow.photofocus.PhotoSession"
             android:label="@string/title_activity_photo_session" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="edu.berkeley.cs160.stackunderflow.photofocus.MapPhotoActivity"
@@ -50,6 +45,15 @@
         <activity
             android:name="edu.berkeley.cs160.stackunderflow.photofocus.MainActivity"
             android:label="@string/title_activity_main" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="edu.berkeley.cs160.stackunderflow.photofocus.PhotoSessionComplete"
+            android:label="@string/title_activity_photo_session_complete" >
         </activity>
     </application>
 

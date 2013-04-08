@@ -1,0 +1,68 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="100"
+    tools:context=".PhotoSessionComplete" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="15"
+        android:orientation="horizontal"
+        android:paddingBottom="2sp"
+        android:paddingLeft="5sp"
+        android:paddingRight="5sp"
+        android:paddingTop="2sp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="10sp"
+            android:text="Your Photo Session is Complete!"
+            android:textSize="17sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="85"
+        android:orientation="vertical"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:paddingTop="5sp" >
+
+        <Button
+            android:id="@+id/uplaod"
+            android:layout_width="340sp"
+            android:layout_height="120sp"
+            android:paddingBottom="15sp"
+            android:paddingLeft="50sp"
+            android:paddingRight="50sp"
+            android:paddingTop="15sp"
+            android:text="upload" />
+
+        <Button
+            android:id="@+id/uplaod"
+            android:layout_width="340sp"
+            android:layout_height="120sp"
+            android:paddingBottom="15sp"
+            android:paddingLeft="50sp"
+            android:paddingRight="50sp"
+            android:paddingTop="15sp"
+            android:text="import" />
+
+        <Button
+            android:id="@+id/uplaod"
+            android:layout_width="340sp"
+            android:layout_height="120sp"
+            android:paddingBottom="15sp"
+            android:paddingLeft="50sp"
+            android:paddingRight="50sp"
+            android:paddingTop="15sp"
+            android:text="annotate" />
+    </LinearLayout>
+
+</LinearLayout>

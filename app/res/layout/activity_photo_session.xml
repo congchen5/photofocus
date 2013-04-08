@@ -57,7 +57,7 @@
         android:padding="10sp" >
 
         <Button
-            android:id="@+id/end_photo_session_button"
+            android:id="@+id/button_end_photo_session"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="End Photo Session"

@@ -21,7 +21,7 @@ import android.app.ProgressDialog;
 import android.util.Log;
 import android.view.Menu;
 
-public class MapPhotoActivity extends Activity implements LocationListener {
+public class MapPhotoActivity extends BaseActivity implements LocationListener {
 	private GoogleMap myMap;
 	private LocationManager lManager;
 	private final static float MIN_DISTANCE = 100;
@@ -56,13 +56,6 @@ public class MapPhotoActivity extends Activity implements LocationListener {
 		addMarker(katesHouse, "Kate's House", "It's really messy.");
 
 	}
-
-	// @Override
-	// public boolean onCreateOptionsMenu(Menu menu) {
-	// // Inflate the menu; this adds items to the action bar if it is present.
-	// getMenuInflater().inflate(R.menu.sample_maps_main, menu);
-	// return true;
-	// }
 
 	public void getMyLocation() {
 		Log.d("getMyLocation", "called");
