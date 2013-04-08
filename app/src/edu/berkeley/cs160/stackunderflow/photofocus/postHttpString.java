@@ -3,6 +3,7 @@ package edu.berkeley.cs160.stackunderflow.photofocus;
 
 
 import java.io.BufferedInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -34,10 +35,12 @@ public class postHttpString extends AsyncTask<String, Object, String> {
 	private final static String EC2_URL= "http://ec2-107-22-151-251.compute-1.amazonaws.com:5000";
 	private MapPhotoActivity thisActivity;
 	private int currentPhotoId;
+	private String body;
 	
-	public postHttpString(MapPhotoActivity thisAct, int curPhotoId){
+	public postHttpString(MapPhotoActivity thisAct, int curPhotoId, String body){
 		thisActivity = thisAct;
-		currentPhotoId = curPhotoId;
+		this.currentPhotoId = curPhotoId;
+		this.body = body;
 	}
 	public postHttpString(MapPhotoActivity thisAct){
 		thisActivity = thisAct;
@@ -58,10 +61,16 @@ public class postHttpString extends AsyncTask<String, Object, String> {
 	}
 	HttpURLConnection urlConnection = null;
 	try {
-
+		
 		urlConnection = (HttpURLConnection) url.openConnection();
 		urlConnection.setRequestProperty("auth_token", AUTH_TOKEN);
 		urlConnection.setRequestMethod("POST");
+		
+		DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream());
+		
+		wr.writeBytes("body="+body+"photo_id="+currentPhotoId);
+		wr.flush();
+		wr.close();
 		Log.d("getHttpString", "url connection made");
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
