@@ -155,12 +155,14 @@ containing a value of this type.
         public static final int terrain=0x7f040003;
     }
     public static final class layout {
-        public static final int activity_map_photo=0x7f030000;
-        public static final int activity_photo_session=0x7f030001;
+        public static final int activity_main=0x7f030000;
+        public static final int activity_map_photo=0x7f030001;
+        public static final int activity_photo_session=0x7f030002;
     }
     public static final class menu {
-        public static final int map=0x7f080000;
-        public static final int photo_session=0x7f080001;
+        public static final int main=0x7f080000;
+        public static final int map=0x7f080001;
+        public static final int photo_session=0x7f080002;
     }
     public static final class string {
         public static final int action_settings=0x7f050012;
@@ -228,7 +230,9 @@ containing a value of this type.
          */
         public static final int common_signin_button_text_long=0x7f05000d;
         public static final int hello_world=0x7f050013;
-        public static final int title_activity_map=0x7f050014;
+        public static final int title_activity_main=0x7f050014;
+        public static final int title_activity_map_photo=0x7f050016;
+        public static final int title_activity_photo_session=0x7f050015;
     }
     public static final class style {
         /** 
