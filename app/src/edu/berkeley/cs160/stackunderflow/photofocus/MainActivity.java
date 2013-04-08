@@ -25,7 +25,7 @@ public class MainActivity extends BaseActivity {
             }
         });
         
-        final Button button2 = (Button) findViewById(R.id.button_find_a_spot_near_me);
+        final Button button2 = (Button) findViewById(R.id.button_find_nearby_photos);
         button2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	Intent myIntent = new Intent(MainActivity.this, MapPhotoActivity.class);

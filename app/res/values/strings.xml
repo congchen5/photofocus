@@ -8,9 +8,10 @@
     <string name="title_activity_photo_session">Photo Session</string>
     <string name="title_activity_map_photo">Nearby</string>
     <string name="menu_my_photos">My Photos</string>
-    <string name="title_activity_photo_session_complete">Photo Session Complete</string>
+    <string name="title_activity_photo_session_complete">Session Completed</string>
     <string name="title_activity_photo_details">Photo Details</string>
     <string name="title_activity_comment">Photo Comments</string>
     <string name="comment_hint">Leave a comment</string>
     <string name="note_hint">Add a note about your photo</string>
+    <string name="title_activity_my_photos">My Photos</string>
 </resources>

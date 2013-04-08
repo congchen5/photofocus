@@ -104,7 +104,7 @@
         android:paddingTop="2sp" >
 
         <Button
-            android:id="@+id/button_find_a_spot_near_me"
+            android:id="@+id/button_find_nearby_photos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -112,7 +112,7 @@
             android:paddingLeft="50sp"
             android:paddingRight="50sp"
             android:paddingTop="15sp"
-            android:text="Find a spot near me" />
+            android:text="Find nearby photos" />
     </RelativeLayout>
 
 </LinearLayout>
