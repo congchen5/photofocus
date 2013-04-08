@@ -140,41 +140,42 @@ containing a value of this type.
     }
     public static final class drawable {
         public static final int berkeley_campanile=0x7f020000;
-        public static final int berkeley_gates=0x7f020001;
-        public static final int berkeley_law=0x7f020002;
-        public static final int camera_icon=0x7f020003;
-        public static final int campanile=0x7f020004;
-        public static final int ic_launcher=0x7f020005;
-        public static final int picture_icon=0x7f020006;
-        public static final int place_marker=0x7f020007;
-        public static final int place_marker_dark=0x7f020008;
+        public static final int berkeley_law=0x7f020001;
+        public static final int berkeley_marina=0x7f020002;
+        public static final int berkeley_pool=0x7f020003;
+        public static final int berkeley_sather_gate=0x7f020004;
+        public static final int berkeley_walk=0x7f020005;
+        public static final int camera_icon=0x7f020006;
+        public static final int campanile=0x7f020007;
+        public static final int ic_launcher=0x7f020008;
+        public static final int picture_icon=0x7f020009;
+        public static final int place_marker=0x7f02000a;
+        public static final int place_marker_dark=0x7f02000b;
     }
     public static final class id {
-        public static final int LinearLayout1=0x7f04000e;
-        public static final int action_settings=0x7f040017;
-        public static final int button_end_photo_session=0x7f040015;
-        public static final int button_find_a_spot_near_me=0x7f04000d;
-        public static final int button_start_photo_session=0x7f04000c;
+        public static final int LinearLayout1=0x7f04000c;
+        public static final int action_settings=0x7f040015;
+        public static final int button_end_photo_session=0x7f040013;
+        public static final int button_find_a_spot_near_me=0x7f04000b;
+        public static final int button_start_photo_session=0x7f04000a;
         public static final int commentList=0x7f040005;
         public static final int commentText=0x7f040006;
         public static final int gallery=0x7f040009;
-        public static final int home_page_campanile=0x7f04000a;
-        public static final int home_page_gates=0x7f04000b;
         public static final int hybrid=0x7f040004;
         public static final int main_page_place_marker=0x7f040008;
-        public static final int menu_my_photos=0x7f040018;
+        public static final int menu_my_photos=0x7f040016;
         public static final int none=0x7f040000;
         public static final int normal=0x7f040001;
-        public static final int photo_map=0x7f04000f;
-        public static final int photo_session_map=0x7f040014;
-        public static final int picture=0x7f040010;
-        public static final int pictureOverlay=0x7f040011;
+        public static final int photo_map=0x7f04000d;
+        public static final int photo_session_map=0x7f040012;
+        public static final int picture=0x7f04000e;
+        public static final int pictureOverlay=0x7f04000f;
         public static final int satellite=0x7f040002;
-        public static final int search=0x7f040012;
-        public static final int session_in_progress_id=0x7f040013;
+        public static final int search=0x7f040010;
+        public static final int session_in_progress_id=0x7f040011;
         public static final int submitComment=0x7f040007;
         public static final int terrain=0x7f040003;
-        public static final int uplaod=0x7f040016;
+        public static final int uplaod=0x7f040014;
     }
     public static final class layout {
         public static final int activity_comment=0x7f030000;
