@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#C0C0C0"
     android:orientation="vertical"
     android:weightSum="100"
     tools:context=".PhotoSessionComplete" >
@@ -10,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="15"
+        android:layout_weight="10"
         android:orientation="horizontal"
         android:paddingBottom="2sp"
         android:paddingLeft="5sp"
@@ -29,41 +30,97 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="85"
+        android:layout_weight="90"
         android:orientation="vertical"
         android:paddingLeft="10sp"
         android:paddingRight="10sp"
         android:paddingTop="5sp" >
 
-        <Button
-            android:id="@+id/uplaod"
+        <LinearLayout
+            android:id="@+id/upload_info"
             android:layout_width="340sp"
-            android:layout_height="120sp"
-            android:paddingBottom="15sp"
-            android:paddingLeft="50sp"
-            android:paddingRight="50sp"
-            android:paddingTop="15sp"
-            android:text="upload" />
+            android:layout_height="140sp"
+            android:background="#FFFFFF"
+            android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/uplaod"
-            android:layout_width="340sp"
-            android:layout_height="120sp"
-            android:paddingBottom="15sp"
-            android:paddingLeft="50sp"
-            android:paddingRight="50sp"
-            android:paddingTop="15sp"
-            android:text="import" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="15sp"
+                android:paddingLeft="50sp"
+                android:paddingRight="50sp"
+                android:paddingTop="15sp"
+                android:text="upload"
+                android:textSize="30sp" />
 
-        <Button
-            android:id="@+id/uplaod"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="15sp"
+                android:paddingLeft="50sp"
+                android:paddingRight="50sp"
+                android:text="step 1: upload your photos online"
+                android:textColor="#736F6E"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/import_info"
             android:layout_width="340sp"
-            android:layout_height="120sp"
-            android:paddingBottom="15sp"
-            android:paddingLeft="50sp"
-            android:paddingRight="50sp"
-            android:paddingTop="15sp"
-            android:text="annotate" />
+            android:layout_height="140sp"
+            android:background="#FFFFFF"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="15sp"
+                android:paddingLeft="50sp"
+                android:paddingRight="50sp"
+                android:paddingTop="15sp"
+                android:text="import"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/upload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="15sp"
+                android:paddingLeft="50sp"
+                android:paddingRight="50sp"
+                android:text="step 2: we&apos;ll automatically import your photos"
+                android:textColor="#736F6E"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/annotate_info"
+            android:layout_width="340sp"
+            android:layout_height="140sp"
+            android:background="#FFFFFF"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="15sp"
+                android:paddingLeft="50sp"
+                android:paddingRight="50sp"
+                android:paddingTop="15sp"
+                android:text="annotate"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/upload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="15sp"
+                android:paddingLeft="50sp"
+                android:paddingRight="50sp"
+                android:text="step 3: add notes to your photos"
+                android:textColor="#736F6E"
+                android:textSize="20sp" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
