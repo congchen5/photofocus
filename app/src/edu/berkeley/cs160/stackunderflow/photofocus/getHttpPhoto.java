@@ -169,7 +169,7 @@ public class getHttpPhoto extends AsyncTask<String, Object, Bitmap> {
 		}
 		LatLng locationMarker = new LatLng(thisActivity.markerLatitude.get(currentPhotoId), 
 				thisActivity.markerLongitude.get(currentPhotoId));
-		thisActivity.addMarker(locationMarker, null,null, bmp);
+		thisActivity.addMarker(locationMarker, ""+currentPhotoId,null, bmp, currentPhotoId);
 	}
 	
 	

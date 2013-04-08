@@ -4,6 +4,7 @@ import java.util.HashMap;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -21,10 +22,11 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 
-public class MapPhotoActivity extends Activity implements LocationListener {
+public class MapPhotoActivity extends Activity implements LocationListener, OnMarkerClickListener {
 	private  GoogleMap myMap;
 	private LocationManager lManager;
 	private final static float MIN_DISTANCE =100;
@@ -44,6 +46,7 @@ public class MapPhotoActivity extends Activity implements LocationListener {
 	public HashMap<Integer, Bitmap> markerPhotos = new HashMap<Integer, Bitmap>();
 	public HashMap<Integer, Double> markerLatitude = new HashMap<Integer, Double>();
 	public HashMap<Integer, Double> markerLongitude= new HashMap<Integer, Double>();
+	public HashMap<String, Integer> markerIdtoPhotoId = new HashMap<String,Integer>();
 	
 	public int currentPhotoId=1;
 	
@@ -93,17 +96,7 @@ public class MapPhotoActivity extends Activity implements LocationListener {
 				e.printStackTrace();
 			}
 		}
-		
-		
-		
-		
-		
-		/*
-		LatLng lawSchool = new LatLng(37.869551, -122.253224);
-		LatLng katesHouse = new LatLng(37.868024, -122.253406);
-		addMarker(lawSchool, "The Law School", "This is where law students study.", bmp);
-		addMarker(katesHouse, "Kate's House", "It's really messy.", bmp);
-		*/
+	Log.d("debug","HashMap Markers" + markerIdtoPhotoId.toString());
 	}
 
 	@Override
@@ -146,6 +139,7 @@ public class MapPhotoActivity extends Activity implements LocationListener {
 			//myMap.moveCamera(cameraUpdate);
 			
 			myMap.setMyLocationEnabled(true);
+			myMap.setOnMarkerClickListener(this);
 
 		}
 	}
@@ -156,7 +150,7 @@ public class MapPhotoActivity extends Activity implements LocationListener {
 	
 	//adds a marker to the map
 	//TODO
-	public  void addMarker(LatLng latlngloc, String title, String snippet, Bitmap bmp){
+	public  void addMarker(LatLng latlngloc, String title, String snippet, Bitmap bmp, int currentPhotoId){
 		//rescale the Bitmap
 		Bitmap rescaledBmp = Bitmap.createScaledBitmap(bmp, PIC_WIDTH, PIC_HEIGHT,false);
 		Log.d("addMarker", "called");
@@ -168,6 +162,10 @@ public class MapPhotoActivity extends Activity implements LocationListener {
 		.icon(BitmapDescriptorFactory.fromBitmap(rescaledBmp))
 
 		);
+		markerIdtoPhotoId.put(newMarker.getId(), currentPhotoId);
+		Log.d("debug","HashMap Markers" + markerIdtoPhotoId.toString());
+	
+		
 	}
 
 	@Override
@@ -195,6 +193,18 @@ public class MapPhotoActivity extends Activity implements LocationListener {
 	}
 	public GoogleMap getMyMap(){
 		return myMap;
+	}
+
+	@Override
+	public boolean onMarkerClick(Marker marker) {
+		//get the photoID
+		String markerId = marker.getId();
+		int photoID = markerIdtoPhotoId.get(markerId);
+		//BRIAN
+		//Intent i = new Intent(this, newCommentActivity.class);
+		//i.putExtra("photoId", photoID);
+		//startActivity(i);
+		return true;
 	}
 
 }
