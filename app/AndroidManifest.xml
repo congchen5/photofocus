@@ -30,8 +30,17 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
+            android:name="edu.berkeley.cs160.stackunderflow.photofocus.PhotoDetailsActivity"
+            android:label="@string/title_activity_photo_details" >
+        </activity>
+        <activity
             android:name="edu.berkeley.cs160.stackunderflow.photofocus.PhotoSession"
             android:label="@string/title_activity_photo_session" >
+        </activity>
+        <activity
+            android:name="edu.berkeley.cs160.stackunderflow.photofocus.CommentActivity"
+            android:label="@string/title_activity_comment"
+            android:theme="@android:style/Theme.Holo.Dialog">            
         </activity>
         <activity
             android:name="edu.berkeley.cs160.stackunderflow.photofocus.MapPhotoActivity"
