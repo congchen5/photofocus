@@ -20,10 +20,12 @@
 	    <TextView 
 	        android:id="@+id/pictureOverlay"
 	        android:layout_width="fill_parent"
-	        android:layout_height="30dp"
+	        android:layout_height="70dp"
 	        android:layout_gravity="bottom"
 	        android:background="#aaAAAAAA"
-	        android:text="I AM THE PHOTOTOTOTOGRAPHER!"/>
+	        android:textColor="#ffffff"
+	        android:textSize="15dp"
+	        android:text="Taken by Kate @ Memorial Glade, Berkeley. Fall-3:42pm-Sunny"/>
     </FrameLayout>
     
     <LinearLayout
@@ -37,18 +39,18 @@
             android:id="@+id/search"
 		    android:layout_width="0dp"
 		    android:layout_height="match_parent"
-		    android:layout_weight="8"
+		    android:layout_weight="0"
 		    android:hint="@string/comment_hint"
 		    android:layout_gravity="center"
 		    android:inputType="text"
 		    android:imeOptions="actionSend" />
         
         <Button 
-            android:id="@+id/openComment"
+            android:id="@+id/submitComment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:text=">"
+            android:layout_weight="10"
+            android:text="View Comments"
             android:onClick="openComments"/>
     </LinearLayout>
     

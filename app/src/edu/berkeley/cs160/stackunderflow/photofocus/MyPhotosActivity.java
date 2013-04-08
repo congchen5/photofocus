@@ -3,10 +3,15 @@ package edu.berkeley.cs160.stackunderflow.photofocus;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MyPhotosActivity extends BaseActivity{
 	
@@ -16,7 +21,7 @@ public class MyPhotosActivity extends BaseActivity{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_photo_details);
+	    setContentView(R.layout.activity_my_photos);
 	    
 	    Bundle extras = getIntent().getExtras();
 	    if (extras != null) {
@@ -25,7 +30,19 @@ public class MyPhotosActivity extends BaseActivity{
 	    }
 	    
 	    ImageView image = (ImageView) findViewById(R.id.picture);
-	    image.setImageResource(R.drawable.campanile);
+	    image.setImageResource(R.drawable.berkeley_pool);
+	}
+	
+	public void updateNotes(View v) {
+		TextView notes = (TextView) findViewById(R.id.pictureOverlay);
+		EditText e = (EditText) findViewById(R.id.noteText);
+		notes.setText(notes.getText() + "\n" + e.getText());
+		e.setText("");
+		e.clearFocus();
+		
+		InputMethodManager imm = (InputMethodManager)getSystemService(
+			      Context.INPUT_METHOD_SERVICE);
+			imm.hideSoftInputFromWindow(e.getWindowToken(), 0);
 	}
 	
 	public void openComments() {

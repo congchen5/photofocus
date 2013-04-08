@@ -20,10 +20,12 @@
 	    <TextView 
 	        android:id="@+id/pictureOverlay"
 	        android:layout_width="fill_parent"
-	        android:layout_height="30dp"
+	        android:layout_height="70dp"
 	        android:layout_gravity="bottom"
-	        android:background="#aaAAAAAA"
-	        android:text="I AM THE PHOTOTOTOTOGRAPHER!"/>
+	        android:background="#aa999999"
+	        android:textColor="#ffffff"
+	        android:textSize="16dp"
+	        android:text="Taken by You @ Law Library, Berkeley. Spring-2:05pm-Partly Cloudy"/>
     </FrameLayout>
     
     <LinearLayout
@@ -34,7 +36,7 @@
 	    android:weightSum="10">
         
         <EditText
-            android:id="@+id/search"
+            android:id="@+id/noteText"
 		    android:layout_width="0dp"
 		    android:layout_height="match_parent"
 		    android:layout_weight="8"
@@ -49,7 +51,7 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:text=">"
-            android:onClick="openComments"/>
+            android:onClick="updateNotes"/>
     </LinearLayout>
     
 
