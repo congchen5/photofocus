@@ -13,18 +13,13 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import edu.berkeley.cs160.stackunderflow.photofocus.MyLocation;
-import edu.berkeley.cs160.stackunderflow.photofocus.MyLocation.LocationResult;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.app.Activity;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.util.Log;
-import android.view.Menu;
 
 public class MapPhotoActivity extends BaseActivity implements LocationListener,
 		OnMarkerClickListener {
@@ -198,9 +193,9 @@ public class MapPhotoActivity extends BaseActivity implements LocationListener,
 		String markerId = marker.getId();
 		int photoID = markerIdtoPhotoId.get(markerId);
 		// BRIAN
-		// Intent i = new Intent(this, newCommentActivity.class);
-		// i.putExtra("photoId", photoID);
-		// startActivity(i);
+		 Intent i = new Intent(this, PhotoDetailsActivity.class);
+		 i.putExtra("photoId", photoID);
+		 startActivity(i);
 		return true;
 	}
 

@@ -41,20 +41,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="0sp"
+            android:paddingLeft="10sp"
             android:paddingRight="0sp" >
 
             <ImageView
-                android:id="@+id/home_page_campanile"
+                android:layout_width="250sp"
+                android:layout_height="250sp"
+                android:src="@drawable/berkeley_sather_gate" />
+
+            <ImageView
                 android:layout_width="250sp"
                 android:layout_height="250sp"
                 android:src="@drawable/berkeley_campanile" />
 
             <ImageView
-                android:id="@+id/home_page_gates"
                 android:layout_width="250sp"
                 android:layout_height="250sp"
-                android:src="@drawable/berkeley_gates" />
+                android:src="@drawable/berkeley_law" />
+
+            <ImageView
+                android:layout_width="250sp"
+                android:layout_height="250sp"
+                android:src="@drawable/berkeley_pool" />
+
+            <ImageView
+                android:layout_width="250sp"
+                android:layout_height="250sp"
+                android:src="@drawable/berkeley_walk" />
         </LinearLayout>
     </HorizontalScrollView>
 

@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ImageView;
 
-public class PhotoDetailsActivity extends Activity{
+public class PhotoDetailsActivity extends BaseActivity{
 	
 	private int photoID;
 	//private ArrayList comments;
