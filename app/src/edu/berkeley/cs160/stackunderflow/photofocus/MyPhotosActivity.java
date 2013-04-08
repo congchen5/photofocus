@@ -20,7 +20,7 @@ public class MyPhotosActivity extends Activity{
 	    
 	    Bundle extras = getIntent().getExtras();
 	    if (extras != null) {
-	        photoID = extras.getInt("photoID");
+	        photoID = extras.getInt("photoId");
 	        //comments = extras.getStringArrayList("comments");
 	    }
 	    

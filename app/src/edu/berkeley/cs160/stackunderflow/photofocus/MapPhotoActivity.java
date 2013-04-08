@@ -191,6 +191,11 @@ public class MapPhotoActivity extends BaseActivity implements LocationListener,
 	public boolean onMarkerClick(Marker marker) {
 		// get the photoID
 		String markerId = marker.getId();
+		if (marker == null){
+			Log.d("onMarkerClick", "marker is null");
+		}
+		Log.d("onMarkerClick","markerId: " + marker.getId() );
+		Log.d("onMarkerClick, what's returned: ",""+ markerIdtoPhotoId.get(markerId));
 		int photoID = markerIdtoPhotoId.get(markerId);
 		// BRIAN
 		 Intent i = new Intent(this, PhotoDetailsActivity.class);

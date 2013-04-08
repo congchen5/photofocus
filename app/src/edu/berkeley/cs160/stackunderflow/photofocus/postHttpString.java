@@ -3,9 +3,12 @@ package edu.berkeley.cs160.stackunderflow.photofocus;
 
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -49,36 +52,50 @@ public class postHttpString extends AsyncTask<String, Object, String> {
 		
 	}
 	protected String doInBackground(String ...params){
-	Log.d("getHttpString", "called");
-	String thisURL = EC2_URL + params[0];
-	Log.d("getHttpString", "params[0]: " + params[0] );
-	URL url = null;
-	try {
-		url = new URL(thisURL);
-	} catch (MalformedURLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	HttpURLConnection urlConnection = null;
-	try {
+		Log.d("getHttpString", "called");
+		String thisURL = EC2_URL + params[0];
 		
-		urlConnection = (HttpURLConnection) url.openConnection();
-		urlConnection.setRequestProperty("auth_token", AUTH_TOKEN);
-		urlConnection.setRequestMethod("POST");
-		
-		DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream());
-		
-		wr.writeBytes("body="+body+"photo_id="+currentPhotoId);
-		wr.flush();
-		wr.close();
-		Log.d("getHttpString", "url connection made");
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+		currentPhotoId = Integer.parseInt(params[1]);
+		body = params[2];
+		Log.d("getHttpString", "params[0]: " + params[0] + " / params[1]" + params[1] + " / params[2]" + params[2]);
+		URL url = null;
+		try {
+			url = new URL(thisURL);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		HttpURLConnection urlConnection = null;
+		try {
+			urlConnection = (HttpURLConnection) url.openConnection();
+			urlConnection.setRequestProperty("auth_token", AUTH_TOKEN);
+			urlConnection.setRequestMethod("POST");
+			urlConnection.setDoOutput(true);
+			urlConnection.setDoInput(true);
+			
+			OutputStreamWriter wr = new OutputStreamWriter(urlConnection.getOutputStream());
+			
+			wr.write("body="+body+"&photo_id="+currentPhotoId);
+			wr.flush();
+			
+			String line;
+			BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+			
+			while ((line = reader.readLine()) != null) {
+				System.out.println(line);
+			}
+			
+			wr.close();
+			reader.close();
+			
+			Log.d("getHttpString", "post url connection made");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
 	
-	InputStream in= null;
+	/*InputStream in= null;
 	try{
 		in = new BufferedInputStream(urlConnection.getInputStream());
 		Log.d("getHttpPhoto", "got input stream");
@@ -99,8 +116,9 @@ public class postHttpString extends AsyncTask<String, Object, String> {
 	}
 	Log.d("getHttpPhoto", "about to return");
 	Log.d("getHttpPhoto", "info: "+ strContents);
-	return strContents;
+	return strContents;*/
 	
+	return null;
 	
 	}
 	

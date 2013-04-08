@@ -1,6 +1,7 @@
 package edu.berkeley.cs160.stackunderflow.photofocus;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -17,7 +18,7 @@ public class CommentActivity extends BaseActivity {
 	    
 	    Bundle extras = getIntent().getExtras();
 	    if (extras != null) {
-	        photoID = extras.getInt("photoID");
+	        photoID = extras.getInt("photoId");
 	        //comments = extras.getStringArrayList("comments");
 	    }
 	}
@@ -26,6 +27,11 @@ public class CommentActivity extends BaseActivity {
 		EditText commentEdit = (EditText)findViewById(R.id.commentText);
 		String body = commentEdit.getText().toString();
 		postHttpString serverTask = new postHttpString();
-		serverTask.execute("/comments?body="+body+"photoid="+photoID);
+
+		String[] args = new String[]{"/comments", ""+ photoID + "", body};
+		
+		serverTask.execute(args);
+		
+		finish();
 	}
 }
