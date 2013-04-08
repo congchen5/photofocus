@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ImageView;
 
 public class PhotoDetailsActivity extends BaseActivity{
@@ -28,7 +29,7 @@ public class PhotoDetailsActivity extends BaseActivity{
 	    image.setImageResource(R.drawable.campanile);
 	}
 	
-	public void openComments() {
+	public void openComments(View v) {
 		Intent intent = new Intent(this, CommentActivity.class);
 		intent.putExtra("photoId", photoID);
 		startActivity(intent);

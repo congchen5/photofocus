@@ -9,7 +9,8 @@
         android:id="@+id/commentList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="21" >
+        android:layout_weight="21"
+        android:background="#cc2" >
         
     </ListView>
     
@@ -24,18 +25,18 @@
             android:id="@+id/commentText"
 		    android:layout_width="0dp"
 		    android:layout_height="match_parent"
-		    android:layout_weight="8"
 		    android:hint="@string/comment_hint"
 		    android:layout_gravity="center"
 		    android:inputType="text"
+		    android:layout_weight="8"
 		    android:imeOptions="actionSend" />
         
         <Button 
             android:id="@+id/submitComment"
-            android:layout_width="0dp"
+            android:layout_width="10sp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
             android:text=">"
+            android:layout_weight="2"
             android:onClick="submitComment"/>
     </LinearLayout>
     

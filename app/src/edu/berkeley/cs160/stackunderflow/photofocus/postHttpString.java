@@ -81,7 +81,7 @@ public class postHttpString extends AsyncTask<String, Object, String> {
 	int bytesRead =0;
 	String strContents = null;
 	try {
-		while((bytesRead = in.read(contents))!= -1){
+		while((bytesRead = in.read(contents)) != -1) { // <- NULL POINTER this line
 			strContents= new String(contents, 0, bytesRead);
 		}
 	} catch (IOException e) {
