@@ -3,14 +3,15 @@ package edu.berkeley.cs160.stackunderflow.photofocus;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ImageView;
 
 public class PhotoDetailsActivity extends Activity{
 	
-	private String photoID;
-	private ArrayList comments;
+	private int photoID;
+	//private ArrayList comments;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -19,8 +20,8 @@ public class PhotoDetailsActivity extends Activity{
 	    
 	    Bundle extras = getIntent().getExtras();
 	    if (extras != null) {
-	        photoID = extras.getString("photoID");
-	        comments = extras.getStringArrayList("comments");
+	        photoID = extras.getInt("photoID");
+	        //comments = extras.getStringArrayList("comments");
 	    }
 	    
 	    ImageView image = (ImageView) findViewById(R.id.picture);
@@ -33,7 +34,12 @@ public class PhotoDetailsActivity extends Activity{
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-    
+	
+	public void openComments() {
+		Intent intent = new Intent(this, CommentActivity.class);
+		intent.putExtra("photoId", photoID);
+		startActivity(intent);
+	}
 	
 	public void submitComment() {
 		//http requests to server
