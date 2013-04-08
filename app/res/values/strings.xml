@@ -7,6 +7,7 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_photo_session">PhotoSessionActivity</string>
     <string name="title_activity_photo_details">Photo Details</string>
+    <string name="title_activity_comment">Photo Comments</string>
     <string name="title_activity_map_photo">MapPhotoActivity</string>
     <string name="comment_hint">Leave a comment</string>
 

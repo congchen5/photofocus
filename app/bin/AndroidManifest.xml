@@ -33,11 +33,7 @@
             android:name="edu.berkeley.cs160.stackunderflow.photofocus.PhotoDetailsActivity"
             android:label="@string/title_activity_photo_details" >
             
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            
             
         </activity>
         <activity
@@ -46,8 +42,20 @@
             
         </activity>
         <activity
+            android:name="edu.berkeley.cs160.stackunderflow.photofocus.CommentActivity"
+            android:label="@string/title_activity_comment"
+            android:theme="@android:style/Theme.Holo.Dialog">
+            
+        </activity>
+        <activity
             android:name="edu.berkeley.cs160.stackunderflow.photofocus.MapPhotoActivity"
             android:label="@string/title_activity_map_photo" >
+            
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

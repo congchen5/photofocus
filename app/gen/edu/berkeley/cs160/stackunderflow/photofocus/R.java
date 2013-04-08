@@ -186,7 +186,7 @@ containing a value of this type.
         /**   Requested by string saying which app requested the notification. [CHAR LIMIT=42] 
          */
         public static final int auth_client_requested_by_msg=0x7f050010;
-        public static final int comment_hint=0x7f050018;
+        public static final int comment_hint=0x7f050019;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -241,8 +241,9 @@ containing a value of this type.
          */
         public static final int common_signin_button_text_long=0x7f05000d;
         public static final int hello_world=0x7f050013;
+        public static final int title_activity_comment=0x7f050017;
         public static final int title_activity_main=0x7f050014;
-        public static final int title_activity_map_photo=0x7f050017;
+        public static final int title_activity_map_photo=0x7f050018;
         public static final int title_activity_photo_details=0x7f050016;
         public static final int title_activity_photo_session=0x7f050015;
     }
