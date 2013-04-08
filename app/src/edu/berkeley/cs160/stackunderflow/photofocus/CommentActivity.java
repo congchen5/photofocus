@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-public class CommentActivity extends Activity {
+public class CommentActivity extends BaseActivity {
 	
 	private int photoID;
 	
