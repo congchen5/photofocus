@@ -29,8 +29,8 @@ public class MapPhotoActivity extends Activity implements LocationListener {
 	private LocationManager lManager;
 	private final static float MIN_DISTANCE =100;
 	private final static int MIN_TIME = 2000;
-	private final static int PIC_WIDTH =48;
-	private final static int PIC_HEIGHT =48;
+	private final static int PIC_WIDTH =100;
+	private final static int PIC_HEIGHT =100;
 	private final static String AUTH_TOKEN = "cc0a0942c97e1c1e7c4eb4f2af8c70b1375557d9";
 	private final static String EC2_URL ="http://ec2-107-22-151-251.compute-1.amazonaws.com:5000";
 	public double currentLat;
@@ -41,9 +41,11 @@ public class MapPhotoActivity extends Activity implements LocationListener {
 	 * photos will be stored with their data in the following HashMaps with their photoid as their key
 	 * 
 	 */
-	public HashMap<Integer, Bitmap> markerPhotos;
-	public HashMap<Integer, Double> markerLatitude;
-	public HashMap<Integer, Double> markerLongitude;
+	public HashMap<Integer, Bitmap> markerPhotos = new HashMap<Integer, Bitmap>();
+	public HashMap<Integer, Double> markerLatitude = new HashMap<Integer, Double>();
+	public HashMap<Integer, Double> markerLongitude= new HashMap<Integer, Double>();
+	
+	public int currentPhotoId=1;
 	
 	private CameraPosition cameraPosition;
 	Location currentLocation;
@@ -55,20 +57,47 @@ public class MapPhotoActivity extends Activity implements LocationListener {
 		Log.d("oncreate", "calling getMyLocation");
 		getMyLocation();
 		setUpMapIfNeeded();
-		//add some sample static markers
-		String httpGetAddOn = "/photos/1?show=image";
-		Bitmap bmp = null;
+		//SEED THE HASH MAPS-- TEMPORARY
+		//kate's house
+		markerLatitude.put(1, 37.868024);
+		markerLongitude.put(1, -122.253406);
+		//campanile
+		markerLatitude.put(2,37.871858);
+		markerLongitude.put(2, -122.258083);
+		//ihouse
+		markerLatitude.put(3, 37.869788);
+		markerLongitude.put(3,  -122.251456);
+		//lawrence lab
+		markerLatitude.put(4, 37.880160);
+		markerLongitude.put(4, -122.251561);
+		//rose garden
+		markerLatitude.put(5, 37.886348);
+		markerLongitude.put(5, -122.263012);
+		//li ka shing
+		markerLatitude.put(6, 37.873114);
+		markerLongitude.put(6, -122.265261);
 		
-		getHttpPhoto request = new getHttpPhoto(this);
-		try {
-			 request.execute(httpGetAddOn);
-		} catch(IllegalStateException e){
-			e.printStackTrace();
+		//run through each of the get request, 
+		//onPostExecute will store the photo in the HashMap
+		
+		for (currentPhotoId = 2; currentPhotoId < 7; currentPhotoId++){
+
+			//add some sample static markers
+			String httpGetAddOn = "/photos/"+currentPhotoId+"?show=image";
+			
+			
+			getHttpPhoto request = new getHttpPhoto(this, currentPhotoId);
+			try {
+				 request.execute(httpGetAddOn);
+			} catch(IllegalStateException e){
+				e.printStackTrace();
+			}
 		}
 		
-		if (bmp == null){
-			Log.d("oncreate", "bmp is null");
-		}
+		
+		
+		
+		
 		/*
 		LatLng lawSchool = new LatLng(37.869551, -122.253224);
 		LatLng katesHouse = new LatLng(37.868024, -122.253406);

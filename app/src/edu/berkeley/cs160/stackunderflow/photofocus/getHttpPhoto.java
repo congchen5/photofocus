@@ -32,9 +32,11 @@ public class getHttpPhoto extends AsyncTask<String, Object, Bitmap> {
 	public final static String AUTH_TOKEN = "cc0a0942c97e1c1e7c4eb4f2af8c70b1375557d9";	//kate's auth token
 	private final static String EC2_URL= "http://ec2-107-22-151-251.compute-1.amazonaws.com:5000";
 	private MapPhotoActivity thisActivity;
+	private int currentPhotoId;
 	
-	public getHttpPhoto(MapPhotoActivity thisAct){
+	public getHttpPhoto(MapPhotoActivity thisAct, int curPhotoId){
 		thisActivity = thisAct;
+		currentPhotoId = curPhotoId;
 	}
 	protected Bitmap doInBackground(String ...params){
 	Log.d("getHttpPhoto", "called");
@@ -153,12 +155,23 @@ public class getHttpPhoto extends AsyncTask<String, Object, Bitmap> {
 		//Log.d("onPostExecute", "response: "+ response );
 		super.onPostExecute(bmp);
 		Log.d("onPostExecute", "called");
-		
-		LatLng lawSchool = new LatLng(37.869551, -122.253224);
-		LatLng katesHouse = new LatLng(37.868024, -122.253406);
-		thisActivity.addMarker(katesHouse, "Kate's House", "It's really messy.", bmp);
+		thisActivity.markerPhotos.put(currentPhotoId, bmp);
+		Log.d("onPostExecute", "currentphotoId: "+ currentPhotoId);
+		if (thisActivity.markerLatitude.get(currentPhotoId) ==null){
+			Log.d("onPostExecute", "Latitude is null");
+		}else{
+			Log.d("onPostExecute", "Latitude is: " + thisActivity.markerLatitude.get(currentPhotoId));
+		}
+		if (thisActivity.markerLongitude.get(currentPhotoId)==null){
+			Log.d("onPostExecute", "Longitude is null");
+		}else{
+			Log.d("onPostExecute", "Longitude is: " + thisActivity.markerLongitude.get(currentPhotoId));
+		}
+		LatLng locationMarker = new LatLng(thisActivity.markerLatitude.get(currentPhotoId), 
+				thisActivity.markerLongitude.get(currentPhotoId));
+		thisActivity.addMarker(locationMarker, null,null, bmp);
 	}
-
 	
 	
 }
+	
