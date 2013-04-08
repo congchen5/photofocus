@@ -19,9 +19,6 @@ public class CommentActivity extends Activity {
 	        photoID = extras.getInt("photoID");
 	        //comments = extras.getStringArrayList("comments");
 	    }
-	    
-	    ImageView image = (ImageView) findViewById(R.id.picture);
-	    image.setImageResource(R.drawable.campanile);
 	}
 	
 	public void submitComment() {

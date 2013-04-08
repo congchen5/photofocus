@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ImageView;
 
-public class PhotoDetailsActivity extends Activity{
+public class MyPhotosActivity extends Activity{
 	
 	private int photoID;
 	//private ArrayList comments;
@@ -27,6 +27,13 @@ public class PhotoDetailsActivity extends Activity{
 	    ImageView image = (ImageView) findViewById(R.id.picture);
 	    image.setImageResource(R.drawable.campanile);
 	}
+	
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 	
 	public void openComments() {
 		Intent intent = new Intent(this, CommentActivity.class);

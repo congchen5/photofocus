@@ -12,4 +12,5 @@
     <string name="title_activity_photo_details">Photo Details</string>
     <string name="title_activity_comment">Photo Comments</string>
     <string name="comment_hint">Leave a comment</string>
+    <string name="note_hint">Add a note about your photo</string>
 </resources>
