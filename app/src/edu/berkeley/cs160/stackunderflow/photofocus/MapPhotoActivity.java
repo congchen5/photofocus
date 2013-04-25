@@ -38,6 +38,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -173,6 +174,11 @@ public class MapPhotoActivity extends BaseActivity implements LocationListener,
 		CameraUpdate cameraUpdate = CameraUpdateFactory
 				.newCameraPosition(cameraPosition);
 		myMap.moveCamera(cameraUpdate);
+		EditText thisText = (EditText) findViewById(R.id.editText1);
+		thisText.clearFocus();
+		InputMethodManager imm = (InputMethodManager)getSystemService(
+			     this.INPUT_METHOD_SERVICE);
+			imm.hideSoftInputFromWindow(thisText.getWindowToken(), 0);
 	}
 
 	// adds a marker to the map
