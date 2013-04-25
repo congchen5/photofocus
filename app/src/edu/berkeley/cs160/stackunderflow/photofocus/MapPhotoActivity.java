@@ -30,7 +30,7 @@ public class MapPhotoActivity extends BaseActivity implements LocationListener,
 	private final static int PIC_WIDTH = 100;
 	private final static int PIC_HEIGHT = 100;
 	private final static String AUTH_TOKEN = "cc0a0942c97e1c1e7c4eb4f2af8c70b1375557d9";
-	private final static String EC2_URL = "http://ec2-107-22-151-251.compute-1.amazonaws.com:5000";
+	public final static String EC2_URL = "http://ec2-54-234-156-157.compute-1.amazonaws.com:5000";
 	public double currentLat;
 	public double currentLong;
 	public LatLng latlonglocation;

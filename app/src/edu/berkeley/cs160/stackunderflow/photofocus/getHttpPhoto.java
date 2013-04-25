@@ -30,7 +30,8 @@ import android.util.Log;
 
 public class getHttpPhoto extends AsyncTask<String, Object, Bitmap> {
 	public final static String AUTH_TOKEN = "cc0a0942c97e1c1e7c4eb4f2af8c70b1375557d9";	//kate's auth token
-	private final static String EC2_URL= "http://ec2-107-22-151-251.compute-1.amazonaws.com:5000";
+//	private final static String EC2_URL= "http://ec2-107-22-151-251.compute-1.amazonaws.com:5000";
+	private final static String EC2_URL = MapPhotoActivity.EC2_URL;
 	private MapPhotoActivity thisActivity;
 	private int currentPhotoId;
 	
