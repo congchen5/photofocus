@@ -10,6 +10,16 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MapPhotoActivity" >
 
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/searchstring"
+        android:inputType="textNoSuggestions" />
+		
+       
+    
+
     <fragment
         android:id="@+id/photo_map"
         android:name="com.google.android.gms.maps.MapFragment"

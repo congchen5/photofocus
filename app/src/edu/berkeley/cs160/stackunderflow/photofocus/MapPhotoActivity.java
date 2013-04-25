@@ -1,6 +1,19 @@
 package edu.berkeley.cs160.stackunderflow.photofocus;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -14,12 +27,19 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import edu.berkeley.cs160.stackunderflow.photofocus.MyLocation;
 import android.graphics.Bitmap;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.content.Intent;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MapPhotoActivity extends BaseActivity implements LocationListener,
 		OnMarkerClickListener {
@@ -33,7 +53,9 @@ public class MapPhotoActivity extends BaseActivity implements LocationListener,
 	public final static String EC2_URL = "http://ec2-54-234-156-157.compute-1.amazonaws.com:5000";
 	public double currentLat;
 	public double currentLong;
+	
 	public LatLng latlonglocation;
+	public LatLng searchLatLng;
 
 	/*
 	 * photos will be stored with their data in the following HashMaps with
@@ -46,7 +68,7 @@ public class MapPhotoActivity extends BaseActivity implements LocationListener,
 
 	public int currentPhotoId = 1;
 
-	private CameraPosition cameraPosition;
+	CameraPosition cameraPosition;
 	Location currentLocation;
 
 	@Override
@@ -92,6 +114,19 @@ public class MapPhotoActivity extends BaseActivity implements LocationListener,
 			}
 		}
 		Log.d("debug", "HashMap Markers" + markerIdtoPhotoId.toString());
+		((EditText) findViewById(R.id.editText1)).setOnEditorActionListener( new EditText.OnEditorActionListener(){
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event){
+				if (actionId == EditorInfo.IME_ACTION_SEARCH || 
+						actionId == EditorInfo.IME_ACTION_DONE ||
+						event.getAction() == KeyEvent.ACTION_DOWN &&
+						event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
+					searchClicked();
+					return true;
+				}
+				return false;
+			}
+		});
 	}
 
 	public void getMyLocation() {
@@ -134,7 +169,7 @@ public class MapPhotoActivity extends BaseActivity implements LocationListener,
 		}
 	}
 
-	private void updateMap() {
+	void updateMap() {
 		CameraUpdate cameraUpdate = CameraUpdateFactory
 				.newCameraPosition(cameraPosition);
 		myMap.moveCamera(cameraUpdate);
@@ -203,5 +238,19 @@ public class MapPhotoActivity extends BaseActivity implements LocationListener,
 		 startActivity(i);
 		return true;
 	}
+	
+	public void searchClicked(){
+		EditText searchText = (EditText) findViewById(R.id.editText1);
+		getAddressFromLatLng searchReq = new getAddressFromLatLng(searchText.getText().toString(), this);
+		try{
+			searchReq.execute();
+		}catch(IllegalStateException e){
+			e.printStackTrace();
+		}
+		
+	}
 
 }
+	
+	
+
