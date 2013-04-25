@@ -57,7 +57,7 @@ def photos():
                           latitude <= ? and longitude >= ? and longitude <= ?''',
                           [request.args['min_latitude'], request.args['max_latitude'],
                            request.args['min_longitude'], request.args['max_longitude']])
-        return str([dict(p) for p in photos])
+        return str([dict(p) for p in photos]).replace("\'", "\"")
     else:
         user_id = get_user_id_token(request.headers['auth_token'])
         photo = request.files['photo']
@@ -84,7 +84,7 @@ def show_photo(photo_id):
     elif request.args['show'] == 'metadata':
         metadata = query_db('''select * from photos where photo_id = ?''',
                             [photo_id])
-        return str([dict(m) for m in metadata])
+        return str([dict(m) for m in metadata]).replace("\'", "\"")
 
 @app.route('/comments', methods=['GET', 'POST'])
 def comments():
@@ -92,7 +92,7 @@ def comments():
     if request.method == 'GET':
         comments = query_db('''select * from comments where photo_id = ?''',
                             [request.args['photo_id']])
-        return str([dict(c) for c in comments])
+        return str([dict(c) for c in comments]).replace("\'", "\"")
     else:
         user_id = get_user_id_token(request.headers['auth_token'])
         db = get_db()
@@ -107,7 +107,7 @@ def notes():
     if request.method == 'GET':
         notes = query_db('''select * from notes where photo_id = ?''',
                          [request.args['photo_id']])
-        return str([dict(n) for n in notes])
+        return str([dict(n) for n in notes]).replace("\'", "\"")
     else:
         user_id = get_user_id_token(request.headers['auth_token'])
         db = get_db()
