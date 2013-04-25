@@ -15,5 +15,5 @@
     <string name="note_hint">Add a note about your photo</string>
     <string name="title_activity_my_photos">My Photos</string>
     <string name="title_activity_user_photos">UserPhotos</string>
-
+    <string name="searchstring">Search by Location</string>
 </resources>
