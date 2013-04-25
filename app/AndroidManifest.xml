@@ -58,11 +58,11 @@
         <activity
             android:name="edu.berkeley.cs160.stackunderflow.photofocus.MainActivity"
             android:label="@string/title_activity_main" >
-            <intent-filter>
+            <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity
             android:name="edu.berkeley.cs160.stackunderflow.photofocus.PhotoSessionComplete"
@@ -71,6 +71,11 @@
         <activity
             android:name="edu.berkeley.cs160.stackunderflow.photofocus.UserPhotos"
             android:label="@string/title_activity_user_photos" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
