@@ -44,7 +44,7 @@
         <activity
             android:name="edu.berkeley.cs160.stackunderflow.photofocus.CommentActivity"
             android:label="@string/title_activity_comment"
-            android:theme="@android:style/Theme.Holo.Dialog">          
+            android:theme="@android:style/Theme.Holo.Dialog" >
         </activity>
         <activity
             android:name="edu.berkeley.cs160.stackunderflow.photofocus.MapPhotoActivity"
@@ -67,6 +67,10 @@
         <activity
             android:name="edu.berkeley.cs160.stackunderflow.photofocus.PhotoSessionComplete"
             android:label="@string/title_activity_photo_session_complete" >
+        </activity>
+        <activity
+            android:name="edu.berkeley.cs160.stackunderflow.photofocus.UserPhotos"
+            android:label="@string/title_activity_user_photos" >
         </activity>
     </application>
 
