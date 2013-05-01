@@ -1,118 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:weightSum="100"
     tools:context=".MainActivity" >
+    
+    <FrameLayout
+	    android:id="@+id/bottom_button_layout"
+	    android:layout_width="match_parent"
+	    android:layout_height="100dp"
+	    android:layout_alignParentBottom="true">           
+		<Button
+	    	android:id="@+id/button_find_nearby_photos"
+	    	android:layout_width="match_parent"
+	    	android:layout_height="match_parent" />
+		<ImageView
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:scaleType="fitXY"
+		    android:src="@drawable/map_orange"
+		    android:layout_gravity="center"/>
+		<TextView
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:text="Find Nearby Photos"
+		    android:layout_gravity="center"
+		    android:gravity="center"
+		    android:textColor="#eeeeee"
+		    android:textSize="28sp"
+		    android:fontFamily="Roboto"/>
+	</FrameLayout>
+        
+	<FrameLayout
+	    android:id="@+id/top_button_layout"
+	    android:layout_width="match_parent"
+	    android:layout_height="100dp"
+	    android:layout_above="@id/bottom_button_layout">           
+		<Button
+	    	android:id="@+id/button_start_photo_session"
+	    	android:layout_width="match_parent"
+	    	android:layout_height="match_parent" />
+		<ImageView
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:scaleType="fitXY"
+		    android:src="@drawable/berkeley_red_small"
+		    android:layout_gravity="center"/>
+		<TextView
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:text="Start a Photo Session"
+		    android:layout_gravity="center"
+		    android:gravity="center"
+		    android:textColor="#eeeeee"
+		    android:textSize="28sp"
+		    android:fontFamily="Roboto"/>
+	</FrameLayout>
+    
+    <HorizontalScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/top_button_layout"
+        android:background="#222222" >
 
+        <LinearLayout
+            android:id="@+id/gallery"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="400dp"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/berkeley_sather_gate" />
+
+            <ImageView
+                android:layout_width="400dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/berkeley_campanile" />
+
+            <ImageView
+                android:layout_width="400dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/berkeley_law" />
+
+            <ImageView
+                android:layout_width="400dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/berkeley_pool" />
+
+            <ImageView
+                android:layout_width="400dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/berkeley_walk" />
+        </LinearLayout>
+    </HorizontalScrollView>  
+    
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="15"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:paddingLeft="10sp"
         android:paddingRight="10sp"
-        android:paddingTop="5sp" >
+        android:paddingTop="5sp" 
+        android:background="#aa555555">
 
         <ImageView
             android:id="@+id/main_page_place_marker"
             android:layout_width="50sp"
             android:layout_height="50sp"
-            android:src="@drawable/place_marker_dark" />
+            android:src="@drawable/place_marker" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="10sp"
-            android:paddingTop="12sp"
-            android:text="What&apos;s hot near you"
-            android:textSize="25sp" />
+            android:text="Trending Photos Nearby"
+            android:layout_gravity="center_vertical"
+            android:textColor="#eeeeee"
+            android:textSize="20sp"
+            android:fontFamily="Roboto" />
     </LinearLayout>
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="55" >
-
-        <LinearLayout
-            android:id="@+id/gallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="10sp"
-            android:paddingRight="0sp" >
-
-            <ImageView
-                android:layout_width="250sp"
-                android:layout_height="250sp"
-                android:src="@drawable/berkeley_sather_gate" />
-
-            <ImageView
-                android:layout_width="250sp"
-                android:layout_height="250sp"
-                android:src="@drawable/berkeley_campanile" />
-
-            <ImageView
-                android:layout_width="250sp"
-                android:layout_height="250sp"
-                android:src="@drawable/berkeley_law" />
-
-            <ImageView
-                android:layout_width="250sp"
-                android:layout_height="250sp"
-                android:src="@drawable/berkeley_pool" />
-
-            <ImageView
-                android:layout_width="250sp"
-                android:layout_height="250sp"
-                android:src="@drawable/berkeley_walk" />
-        </LinearLayout>
-    </HorizontalScrollView>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="15"
-        android:orientation="horizontal"
-        android:paddingBottom="2sp"
-        android:paddingLeft="5sp"
-        android:paddingRight="5sp"
-        android:paddingTop="2sp" >
-
-        <Button
-            android:id="@+id/button_start_photo_session"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:paddingBottom="15sp"
-            android:paddingLeft="50sp"
-            android:paddingRight="50sp"
-            android:paddingTop="15sp"
-            android:text="Start a Photo Session" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="15"
-        android:orientation="horizontal"
-        android:paddingBottom="2sp"
-        android:paddingLeft="5sp"
-        android:paddingRight="5sp"
-        android:paddingTop="2sp" >
-
-        <Button
-            android:id="@+id/button_find_nearby_photos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:paddingBottom="15sp"
-            android:paddingLeft="50sp"
-            android:paddingRight="50sp"
-            android:paddingTop="15sp"
-            android:text="Find nearby photos" />
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>

@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -16,6 +17,10 @@ import android.widget.TextView;
 public class MyPhotosActivity extends BaseActivity{
 	
 	private int photoID;
+	private final int EMPTY_STATE = 0;
+	private final int MAP_STATE = 1;
+	private final int DESCRIPTION_STATE = 2;
+	private int descriptionState = EMPTY_STATE;
 	//private ArrayList comments;
 	
 	@Override
@@ -34,7 +39,7 @@ public class MyPhotosActivity extends BaseActivity{
 	}
 	
 	public void updateNotes(View v) {
-		TextView notes = (TextView) findViewById(R.id.pictureOverlay);
+		TextView notes = (TextView) findViewById(R.id.descriptionOverlay);
 		EditText e = (EditText) findViewById(R.id.noteText);
 		notes.setText(notes.getText() + "\n" + e.getText());
 		e.setText("");
@@ -53,6 +58,29 @@ public class MyPhotosActivity extends BaseActivity{
 	
 	public void submitComment() {
 		//http requests to server
+	}
+	
+	public void toggleDescription(View v) {
+		View view = findViewById(R.id.descriptionOverlay);
+		ImageView map = (ImageView) findViewById(R.id.map);
+		
+		if (descriptionState == EMPTY_STATE) {
+			map.setVisibility(View.VISIBLE);
+			descriptionState = MAP_STATE;
+		}
+		else if (descriptionState == MAP_STATE) {
+			view.setVisibility(View.VISIBLE);
+			descriptionState = DESCRIPTION_STATE;
+		}
+		else if (descriptionState == DESCRIPTION_STATE) {
+			view.setVisibility(View.INVISIBLE);
+			map.setVisibility(View.INVISIBLE);
+			descriptionState = EMPTY_STATE;
+		}
+		else {
+			//NOT A VALID STATE
+			Log.e("PhotoDetailsActivity", "Not a valid description state");
+		}
 	}
 	 
 }
