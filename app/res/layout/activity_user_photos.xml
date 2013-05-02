@@ -1,13 +1,14 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:weightSum="100" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
+        android:layout_weight="20"
         android:orientation="horizontal"
         android:paddingTop="20dp" >
 
@@ -16,6 +17,7 @@
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
             android:cropToPadding="true"
+            android:paddingBottom="10dp"
             android:paddingLeft="30dp"
             android:paddingRight="10dp"
             android:src="@drawable/cong_piccy" />
@@ -28,20 +30,24 @@
             android:textSize="25sp" >
         </TextView>
     </LinearLayout>
-
-    <VerticalScrollView
+	<!--
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="0dp"
+        android:layout_weight="80" >-->
 
-        <ImageView
-            android:layout_width="250sp"
-            android:layout_height="250sp"
-            android:src="@drawable/berkeley_sather_gate" />
-
-        <ImageView
-            android:layout_width="250sp"
-            android:layout_height="250sp"
-            android:src="@drawable/berkeley_campanile" />
-    </VerticalScrollView>
+    <GridView
+        android:id="@+id/user_gallery"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="80"
+        android:columnWidth="100dp"
+        android:gravity="center"
+        android:horizontalSpacing="2dp"
+        android:numColumns="3"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="2dp" >
+    </GridView>
+    <!-- </ScrollView>-->
 
 </LinearLayout>

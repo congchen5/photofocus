@@ -25,7 +25,7 @@ public abstract class BaseActivity extends Activity {
     		BaseActivity.this.startActivity(i1);
     		return true;
     	case R.id.menu_my_photos:
-    		Intent i2 = new Intent(BaseActivity.this, MyPhotosActivity.class);
+    		Intent i2 = new Intent(BaseActivity.this, UserPhotos.class);
     		BaseActivity.this.startActivity(i2);
     		return true;
     	default:
