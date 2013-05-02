@@ -53,10 +53,16 @@ def check_logged_in():
 def photos():
     check_logged_in()
     if request.method == 'GET':
-        photos = query_db('''select * from photos where latitude >= ? and
-                          latitude <= ? and longitude >= ? and longitude <= ?''',
-                          [request.args['min_latitude'], request.args['max_latitude'],
-                           request.args['min_longitude'], request.args['max_longitude']])
+        if request.args.get('user_id', '') != '':
+            user = request.args['user_id']
+            if user == 'me':
+                user = get_user_id_token(request.headers['auth_token'])
+            photos = query_db('''select * from photos where user_id = ?''', [user])
+        else:
+            photos = query_db('''select * from photos where latitude >= ? and
+                              latitude <= ? and longitude >= ? and longitude <= ?''',
+                              [request.args['min_latitude'], request.args['max_latitude'],
+                               request.args['min_longitude'], request.args['max_longitude']])
         return str([dict(p) for p in photos]).replace("\'", "\"")
     else:
         user_id = get_user_id_token(request.headers['auth_token'])
