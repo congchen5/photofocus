@@ -38,6 +38,8 @@ public class UserPhotos extends BaseActivity {
 	
 	private ArrayList<Integer> photoIds = new ArrayList<Integer>();
 	private ArrayList<Bitmap> imgs = new ArrayList<Bitmap>();
+	private ImageAdapter imgAdapter;
+	private int listCount;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,8 @@ public class UserPhotos extends BaseActivity {
 		setContentView(R.layout.activity_user_photos);
 		
 	    GridView gridview = (GridView) findViewById(R.id.user_gallery);
-	    gridview.setAdapter(new ImageAdapter(this, imgs));
+	    imgAdapter = new ImageAdapter(this, imgs);
+	    gridview.setAdapter(imgAdapter);
 	    
 	    // Make async request
 	 	String httpGetAddOn = "/photos?user_id=1";
@@ -153,6 +156,8 @@ public class UserPhotos extends BaseActivity {
 	    		Log.d("jsonarray value: ", s);
 	    		Log.d("photoIds: ", photoIds.toString());
 	    		
+	    		listCount = photoIds.size();
+	    		
 	            for (int i = 0; i < photoIds.size(); i++) {
 	            	
 	            	// Make get request for image
@@ -235,10 +240,15 @@ public class UserPhotos extends BaseActivity {
     		super.onPostExecute(bmp);
     		Log.d("onPostExecute", "called");
     		Log.d("got the picture for picture id: " + currentPhotoId, "");
-    		
-    		ImageView imageView = (ImageView) findViewById(R.id.picture);
-    		imageView.setId(currentPhotoId);
-    	    imageView.setImageBitmap(bmp);
+    	    
+    	    imgs.add(bmp);
+    	    
+    	    --listCount;
+    	    if (listCount == 0) {
+    	    	Log.d("debug", "notifyDataSetChanged called");
+    	    	Log.d("size", "" + imgs.size());
+    	    	imgAdapter.notifyDataSetChanged();
+    	    }
     	}
     }
 	
