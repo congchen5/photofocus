@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -286,7 +287,24 @@ public class UserPhotos extends BaseActivity {
 	        }
 
 	        imageView.setImageBitmap(images.get(position));
+	        
+	    	OnPictureClickListener l = new OnPictureClickListener(photoIds.get(position));
+	    	imageView.setOnClickListener(l);
 	        return imageView;
 	    }
+	    
+    	public class OnPictureClickListener implements OnClickListener {
+    		private int pictureId;
+    		public OnPictureClickListener(int pictureId) {
+    			this.pictureId = pictureId;
+    		}
+    		
+			@Override
+			public void onClick(View v) {
+				Intent intnt = new Intent(UserPhotos.this, PhotoDetailsActivity.class);
+				intnt.putExtra("photoId", pictureId);
+				startActivity(intnt);
+			}
+    	}
 	}
 }
