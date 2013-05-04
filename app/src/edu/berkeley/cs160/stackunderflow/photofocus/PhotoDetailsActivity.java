@@ -15,7 +15,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -39,7 +38,7 @@ public class PhotoDetailsActivity extends BaseActivity{
 	        //comments = extras.getStringArrayList("comments");
 	    }
 
-	    // add some sample static markers
+	    // get the photo
 	 	String httpGetAddOn = "/photos/" + photoID + "?show=image";
 		getPhoto request = new getPhoto(this, photoID);
 		request.execute(httpGetAddOn);

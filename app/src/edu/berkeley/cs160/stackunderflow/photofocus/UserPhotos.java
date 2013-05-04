@@ -51,7 +51,7 @@ public class UserPhotos extends BaseActivity {
 	    imgAdapter = new ImageAdapter(this, imgs);
 	    gridview.setAdapter(imgAdapter);
 	    
-	    // Make async request
+	    // Make async request, user is hardcoded in
 	 	String httpGetAddOn = "/photos?user_id=1";
 		getPhotoMetaData request = new getPhotoMetaData(this, 1);
 		request.execute(httpGetAddOn);
