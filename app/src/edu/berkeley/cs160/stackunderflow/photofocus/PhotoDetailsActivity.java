@@ -1,11 +1,17 @@
 package edu.berkeley.cs160.stackunderflow.photofocus;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -42,6 +48,11 @@ public class PhotoDetailsActivity extends BaseActivity{
 	 	String httpGetAddOn = "/photos/" + photoID + "?show=image";
 		getPhoto request = new getPhoto(this, photoID);
 		request.execute(httpGetAddOn);
+		
+	    // get the notes
+//	 	httpGetAddOn = "/notes/?photo_id=" + photoID;
+//		getNotes request2 = new getNotes(this, photoID);
+//		request2.execute(httpGetAddOn);
 		
 		// For debugging purposes
 //	    Toast.makeText(this, "ImageId received: " + photoID, Toast.LENGTH_SHORT).show();
@@ -153,5 +164,108 @@ public class PhotoDetailsActivity extends BaseActivity{
     		imageView.setId(currentPhotoId);
     	    imageView.setImageBitmap(bmp);
     	}
-    }	
+    }
+	
+	private class getNotes extends AsyncTask<String, Object, String> {
+    	public final static String AUTH_TOKEN = "cc0a0942c97e1c1e7c4eb4f2af8c70b1375557d9";	//kate's auth token
+    	private final static String EC2_URL = MapPhotoActivity.EC2_URL;
+    	private PhotoDetailsActivity thisActivity;
+    	private int currentUserID;
+		private ProgressDialog dialog;
+    	
+    	public getNotes(PhotoDetailsActivity thisAct, int curUserId){
+    		thisActivity = thisAct;
+    		currentUserID = curUserId;
+    	}
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			dialog = new ProgressDialog(thisActivity);
+	        this.dialog.setMessage("Loading...");
+	        this.dialog.show();
+	    }
+		
+    	protected String doInBackground(String ...params) {
+	    	Log.d("getNotes", "called");
+	    	String thisURL = EC2_URL + params[0];
+	    	Log.d("getNotes", "params[0]: " + params[0] );
+	    	URL url = null;
+	    	try {
+	    		url = new URL(thisURL);
+	    	} catch (MalformedURLException e) {
+	    		e.printStackTrace();
+	    	}
+	    	HttpURLConnection urlConnection = null;
+	    	try {
+	
+	    		urlConnection = (HttpURLConnection) url.openConnection();
+	    		urlConnection.setRequestProperty("auth_token", AUTH_TOKEN);
+	    		urlConnection.setRequestMethod("GET");
+	    		Log.d("getNotes", "url connection made");
+	    	} catch (IOException e) {
+	    		e.printStackTrace();
+	    	}
+	    	
+	    	InputStream in= null;
+	    	try{
+	    		in = new BufferedInputStream(urlConnection.getInputStream());
+	    		Log.d("getNotes", "got input stream");
+	    	} catch (IOException e) {
+	    		e.printStackTrace();
+	    	}
+	    	
+	    	BufferedReader reader = null;
+			try {
+				reader = new BufferedReader(new InputStreamReader(in, "UTF-8"), 8);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+	    	StringBuilder sb = new StringBuilder();
+
+	    	String line = null;
+	    	try {
+				while ((line = reader.readLine()) != null)
+				{
+				    sb.append(line + "\n");
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	    	String result = sb.toString();
+	    	return result;
+    	}
+    	
+    	@Override
+    	protected void onPostExecute(String s) {
+			if (dialog.isShowing()) {
+	            dialog.dismiss();
+	        }
+			try {
+				
+		  		super.onPostExecute(s);
+	    		Log.d("onPostExecute", "called");
+	    		Log.d("null? ", (s == null) + "");
+	    		Log.d("jsonarray value: ", s);
+	    		
+//				JSONArray ja = new JSONArray(s);
+//				
+//				for (int i = 0; i < ja.length(); i++) {
+//					JSONObject c = ja.getJSONObject(i);
+//	
+//		            String body = c.getString("body");
+//		            int user_id = Integer.parseInt(c.getString("user_id"));
+//		            String user_name = nameLookup[user_id - 1];
+//					
+//		            c_adapter.add(new Comment(user_id, user_name, body));
+//				}
+//				c_adapter.notifyDataSetChanged();
+//				
+//	  
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}
+    }
 }

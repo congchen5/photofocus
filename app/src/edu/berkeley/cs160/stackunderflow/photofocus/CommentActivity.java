@@ -240,8 +240,8 @@ public class CommentActivity extends BaseActivity {
 	    	String paramBody = params[0];
 	    	String paramPhotoId = params[1];
 	    	
-	    	System.out.println("*** doInBackground ***");
-
+	    	System.out.println("*** doInBackground *** paramBody: " + paramBody + " paramPhotoId: " + paramPhotoId);
+	    	
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(EC2_URL);
 
