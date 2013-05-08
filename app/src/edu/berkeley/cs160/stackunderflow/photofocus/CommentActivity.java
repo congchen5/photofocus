@@ -118,7 +118,6 @@ public class CommentActivity extends BaseActivity {
 	    	}
 	    	HttpURLConnection urlConnection = null;
 	    	try {
-	
 	    		urlConnection = (HttpURLConnection) url.openConnection();
 	    		urlConnection.setRequestProperty("auth_token", AUTH_TOKEN);
 	    		urlConnection.setRequestMethod("GET");
@@ -187,26 +186,11 @@ public class CommentActivity extends BaseActivity {
     }
     
 	public void submitComment(View v) {
-		sendPostComment("cool picture", photoID + "");
-		updateComments();
+		EditText e = (EditText) findViewById(R.id.commentText);
 		
-//		TextView t = (TextView) findViewById(R.id.new_comment);
-//		EditText e = (EditText) findViewById(R.id.commentText);
-//		t.setText("You: " + e.getText().toString());
-//		e.setText("");
-//		InputMethodManager imm = (InputMethodManager)getSystemService(
-//			      Context.INPUT_METHOD_SERVICE);
-//			imm.hideSoftInputFromWindow(e.getWindowToken(), 0);
-//		
-//		EditText commentEdit = (EditText)findViewById(R.id.commentText);
-//		String body = commentEdit.getText().toString();
-//		postHttpString serverTask = new postHttpString();
-//
-//		String[] args = new String[]{"/comments", ""+ photoID + "", body};
-//		
-//		serverTask.execute(args);
-//		
-//		finish();
+		sendPostComment(e.getText().toString(), photoID + "");
+		e.setText("");	
+		updateComments();
 	}
 	
 	private void sendPostComment(String body, String photo_id) {
@@ -243,7 +227,8 @@ public class CommentActivity extends BaseActivity {
 	    	System.out.println("*** doInBackground *** paramBody: " + paramBody + " paramPhotoId: " + paramPhotoId);
 	    	
             HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(EC2_URL);
+            HttpPost httpPost = new HttpPost(EC2_URL + "/comments");
+            
 
             BasicNameValuePair bodyBasicNameValuePair = new BasicNameValuePair("body", paramBody);
             BasicNameValuePair photoIdBasicNameValuePair = new BasicNameValuePair("photo_id", paramPhotoId);
@@ -259,6 +244,7 @@ public class CommentActivity extends BaseActivity {
 
                 // setEntity() hands the entity (here it is urlEncodedFormEntity) to the request.
                 httpPost.setEntity(urlEncodedFormEntity);
+                httpPost.setHeader("auth_token", AUTH_TOKEN);
 
                 try {
                     // HttpResponse is an interface just like HttpPost.
@@ -295,13 +281,17 @@ public class CommentActivity extends BaseActivity {
     	
         @Override
         protected void onPostExecute(String result) {
-            super.onPostExecute(result);
+			if (dialog.isShowing()) {
+	            dialog.dismiss();
+	        }
+        	super.onPostExecute(result);
+            
 
-            if(result.equals("working")){
-                Toast.makeText(getApplicationContext(), "HTTP POST is working...", Toast.LENGTH_LONG).show();
-            }else{
-                Toast.makeText(getApplicationContext(), "Invalid POST req...", Toast.LENGTH_LONG).show();
-            }
+//            if(result.equals("working")){
+//                Toast.makeText(getApplicationContext(), "HTTP POST is working...", Toast.LENGTH_LONG).show();
+//            }else{
+//                Toast.makeText(getApplicationContext(), "Invalid POST req...", Toast.LENGTH_LONG).show();
+//            }
         }    
     }
 
