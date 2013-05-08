@@ -117,8 +117,12 @@ def notes():
     else:
         user_id = get_user_id_token(request.headers['auth_token'])
         db = get_db()
-        db.execute('''insert into notes (body, user_id, photo_id) values (?, ?, ?)''',
-                   [request.form['body'], user_id, request.form['photo_id']])
+        db.execute('''update notes set body = ? where photo_id = ?''',
+                   [request.form['body'], request.form['photo_id']])
+        db.execute('''insert into notes (body, user_id, photo_id) values (?, ?, ?)
+                   where not exists (select * from notes where photo_id = ?)''',
+                   [request.form['body'], user_id, request.form['photo_id'],
+                    request.form['photo_id']])
         db.commit()
         return 'Note added!'
 
