@@ -20,7 +20,7 @@
             android:paddingBottom="10dp"
             android:paddingLeft="30dp"
             android:paddingRight="10dp"
-            android:src="@drawable/kate_icon" />
+            android:src="@drawable/kate_profile" />
 
         <TextView
             android:layout_width="wrap_content"

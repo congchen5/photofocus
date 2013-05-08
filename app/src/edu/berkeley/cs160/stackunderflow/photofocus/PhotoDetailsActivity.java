@@ -1,11 +1,17 @@
 package edu.berkeley.cs160.stackunderflow.photofocus;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -16,6 +22,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class PhotoDetailsActivity extends BaseActivity{
@@ -43,6 +50,11 @@ public class PhotoDetailsActivity extends BaseActivity{
 		getPhoto request = new getPhoto(this, photoID);
 		request.execute(httpGetAddOn);
 		
+	    // get the notes
+	 	httpGetAddOn = "/notes?photo_id=" + photoID;
+		getNotes request2 = new getNotes(this, photoID);
+		request2.execute(httpGetAddOn);
+		
 		// For debugging purposes
 //	    Toast.makeText(this, "ImageId received: " + photoID, Toast.LENGTH_SHORT).show();
 	}
@@ -53,25 +65,15 @@ public class PhotoDetailsActivity extends BaseActivity{
 		startActivity(intent);
 	}
 	
-	public void submitComment() {
-		//http requests to server
-	}
-	
 	public void toggleDescription(View v) {
 		View view = findViewById(R.id.descriptionOverlay);
-		ImageView map = (ImageView) findViewById(R.id.map);
 		
 		if (descriptionState == EMPTY_STATE) {
-			map.setVisibility(View.VISIBLE);
-			descriptionState = MAP_STATE;
-		}
-		else if (descriptionState == MAP_STATE) {
 			view.setVisibility(View.VISIBLE);
 			descriptionState = DESCRIPTION_STATE;
 		}
 		else if (descriptionState == DESCRIPTION_STATE) {
 			view.setVisibility(View.INVISIBLE);
-			map.setVisibility(View.INVISIBLE);
 			descriptionState = EMPTY_STATE;
 		}
 		else {
@@ -153,5 +155,113 @@ public class PhotoDetailsActivity extends BaseActivity{
     		imageView.setId(currentPhotoId);
     	    imageView.setImageBitmap(bmp);
     	}
-    }	
+    }
+	
+	private class getNotes extends AsyncTask<String, Object, String> {
+    	public final static String AUTH_TOKEN = "cc0a0942c97e1c1e7c4eb4f2af8c70b1375557d9";	//kate's auth token
+    	private final static String EC2_URL = MapPhotoActivity.EC2_URL;
+    	private PhotoDetailsActivity thisActivity;
+    	private int currentUserID;
+		private ProgressDialog dialog;
+    	
+    	public getNotes(PhotoDetailsActivity thisAct, int curUserId){
+    		thisActivity = thisAct;
+    		currentUserID = curUserId;
+    	}
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			dialog = new ProgressDialog(thisActivity);
+	        this.dialog.setMessage("Loading...");
+	        this.dialog.show();
+	    }
+		
+    	protected String doInBackground(String ...params) {
+	    	Log.d("getNotes", "called");
+	    	String thisURL = EC2_URL + params[0];
+	    	Log.d("getNotes", "params[0]: " + params[0] );
+	    	URL url = null;
+	    	try {
+	    		url = new URL(thisURL);
+	    	} catch (MalformedURLException e) {
+	    		e.printStackTrace();
+	    	}
+	    	HttpURLConnection urlConnection = null;
+	    	try {
+	
+	    		urlConnection = (HttpURLConnection) url.openConnection();
+	    		urlConnection.setRequestProperty("auth_token", AUTH_TOKEN);
+	    		urlConnection.setRequestMethod("GET");
+	    		Log.d("getNotes", "url connection made");
+	    	} catch (IOException e) {
+	    		e.printStackTrace();
+	    	}
+	    	
+	    	InputStream in= null;
+	    	try{
+	    		in = new BufferedInputStream(urlConnection.getInputStream());
+	    		Log.d("getNotes", "got input stream");
+	    	} catch (IOException e) {
+	    		e.printStackTrace();
+	    	}
+	    	
+	    	BufferedReader reader = null;
+			try {
+				reader = new BufferedReader(new InputStreamReader(in, "UTF-8"), 8);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+	    	StringBuilder sb = new StringBuilder();
+
+	    	String line = null;
+	    	try {
+				while ((line = reader.readLine()) != null)
+				{
+				    sb.append(line + "\n");
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	    	String result = sb.toString();
+	    	return result;
+    	}
+    	
+    	@Override
+    	protected void onPostExecute(String s) {
+			if (dialog.isShowing()) {
+	            dialog.dismiss();
+	        }
+			try {
+				
+		  		super.onPostExecute(s);
+	    		Log.d("onPostExecute", "called");
+	    		Log.d("null? ", (s == null) + "");
+	    		Log.d("jsonarray value: ", s);
+	    		
+				JSONArray ja = new JSONArray(s);
+				
+				if (ja.length() > 1) {
+					Log.d("ERROR!", "SHOULD ONLY HAVE ONE NOTE PER PHOTO");
+				}
+				
+				JSONObject c = ja.getJSONObject(0);
+
+	            String body = c.getString("body");
+	            int user_id = Integer.parseInt(c.getString("user_id"));
+	            String user_name = nameLookup[user_id - 1];
+				
+	            ImageView profile = (ImageView) findViewById(R.id.profile_pic);
+	            setProfilePicture(profile, user_id);
+	            
+	            TextView textOverlay = (TextView) findViewById(R.id.textOverlay);
+	            Log.d("textOverlay value", body);
+	            textOverlay.setText(user_name + "\n" + body);
+	  
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}
+    }
 }

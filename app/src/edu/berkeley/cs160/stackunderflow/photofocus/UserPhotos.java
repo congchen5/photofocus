@@ -301,7 +301,7 @@ public class UserPhotos extends BaseActivity {
     		
 			@Override
 			public void onClick(View v) {
-				Intent intnt = new Intent(UserPhotos.this, PhotoDetailsActivity.class);
+				Intent intnt = new Intent(UserPhotos.this, MyPhotosActivity.class);
 				intnt.putExtra("photoId", pictureId);
 				startActivity(intnt);
 			}

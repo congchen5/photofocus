@@ -60,6 +60,7 @@
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -70,6 +71,11 @@
         <activity
             android:name="edu.berkeley.cs160.stackunderflow.photofocus.UserPhotos"
             android:label="@string/title_activity_user_photos" >
+        </activity>
+        <activity
+            android:name="edu.berkeley.cs160.stackunderflow.photofocus.EditNoteActivity"
+            android:label="@string/title_activity_edit_note"
+            android:theme="@android:style/Theme.Holo.Dialog" >
         </activity>
     </application>
 
