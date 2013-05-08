@@ -71,7 +71,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal" >
 
-            <ImageView
+            <!-- <ImageView
                 android:layout_width="400dp"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -95,7 +95,7 @@
             <ImageView
                 android:layout_width="400dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/berkeley_walk" />
+                android:src="@drawable/berkeley_walk" />-->
         </LinearLayout>
     </HorizontalScrollView>  
     

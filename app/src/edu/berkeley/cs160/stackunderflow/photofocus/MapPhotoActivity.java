@@ -238,10 +238,11 @@ public class MapPhotoActivity extends BaseActivity implements LocationListener,
 		Log.d("onMarkerClick","markerId: " + marker.getId() );
 		Log.d("onMarkerClick, what's returned: ",""+ markerIdtoPhotoId.get(markerId));
 		int photoID = markerIdtoPhotoId.get(markerId);
-		// BRIAN
-		 Intent i = new Intent(this, PhotoDetailsActivity.class);
-		 i.putExtra("photoId", photoID);
-		 startActivity(i);
+		
+		// Start a new activity with the details page of a picture
+		Intent i = new Intent(this, PhotoDetailsActivity.class);
+		i.putExtra("photoId", photoID);
+		startActivity(i);
 		return true;
 	}
 	

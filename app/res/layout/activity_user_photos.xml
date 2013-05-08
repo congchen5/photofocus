@@ -20,21 +20,16 @@
             android:paddingBottom="10dp"
             android:paddingLeft="30dp"
             android:paddingRight="10dp"
-            android:src="@drawable/cong_piccy" />
+            android:src="@drawable/kate_icon" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="20sp"
-            android:text="Cong Chen"
+            android:text="Kate Gorman"
             android:textSize="25sp" >
         </TextView>
     </LinearLayout>
-	<!--
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="80" >-->
 
     <GridView
         android:id="@+id/user_gallery"
@@ -48,6 +43,4 @@
         android:stretchMode="columnWidth"
         android:verticalSpacing="2dp" >
     </GridView>
-    <!-- </ScrollView>-->
-
 </LinearLayout>

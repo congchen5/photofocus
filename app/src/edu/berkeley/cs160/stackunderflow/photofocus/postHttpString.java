@@ -126,11 +126,8 @@ public class postHttpString extends AsyncTask<String, Object, String> {
 	protected void onPostExecute(String response){
 		//Log.d("onPostExecute", "response: "+ response );
 		super.onPostExecute(response);
-		Log.d("onPostExecute", "called");
-		
+		Log.d("onPostExecute", "called");	
 	}
-	
-	
 }
 	
 
