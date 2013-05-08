@@ -119,6 +119,8 @@ def notes():
         db = get_db()
         db.execute('''update notes set body = ? where photo_id = ?''',
                    [request.form['body'], request.form['photo_id']])
+        db.commit()
+        db = get_db()
         db.execute('''insert into notes (body, user_id, photo_id) values (?, ?, ?)
                    where not exists (select * from notes where photo_id = ?)''',
                    [request.form['body'], user_id, request.form['photo_id'],
