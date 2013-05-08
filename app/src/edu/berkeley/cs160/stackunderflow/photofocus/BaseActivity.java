@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 public abstract class BaseActivity extends Activity {
+	public String[] nameLookup = {"Kate", "Ben", "Cong", "Brian"};
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -31,6 +33,17 @@ public abstract class BaseActivity extends Activity {
     	default:
     		return super.onOptionsItemSelected(item);
     	}
+    }
+    
+    public void setProfilePicture(ImageView imageReference, int userId) {
+    	if (userId == 1)
+    		imageReference.setImageDrawable(getResources().getDrawable(R.drawable.kate_profile));
+    	else if (userId == 2)
+    		imageReference.setImageDrawable(getResources().getDrawable(R.drawable.ben_profile));
+    	else if (userId == 3)
+    		imageReference.setImageDrawable(getResources().getDrawable(R.drawable.cong_profile));
+    	else if (userId == 4)
+    		imageReference.setImageDrawable(getResources().getDrawable(R.drawable.brian_profile));
     }
     
 }

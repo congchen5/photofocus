@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class PhotoDetailsActivity extends BaseActivity{
@@ -50,9 +51,9 @@ public class PhotoDetailsActivity extends BaseActivity{
 		request.execute(httpGetAddOn);
 		
 	    // get the notes
-//	 	httpGetAddOn = "/notes/?photo_id=" + photoID;
-//		getNotes request2 = new getNotes(this, photoID);
-//		request2.execute(httpGetAddOn);
+	 	httpGetAddOn = "/notes?photo_id=" + photoID;
+		getNotes request2 = new getNotes(this, photoID);
+		request2.execute(httpGetAddOn);
 		
 		// For debugging purposes
 //	    Toast.makeText(this, "ImageId received: " + photoID, Toast.LENGTH_SHORT).show();
@@ -64,25 +65,15 @@ public class PhotoDetailsActivity extends BaseActivity{
 		startActivity(intent);
 	}
 	
-	public void submitComment() {
-		//http requests to server
-	}
-	
 	public void toggleDescription(View v) {
 		View view = findViewById(R.id.descriptionOverlay);
-		ImageView map = (ImageView) findViewById(R.id.map);
 		
 		if (descriptionState == EMPTY_STATE) {
-			map.setVisibility(View.VISIBLE);
-			descriptionState = MAP_STATE;
-		}
-		else if (descriptionState == MAP_STATE) {
 			view.setVisibility(View.VISIBLE);
 			descriptionState = DESCRIPTION_STATE;
 		}
 		else if (descriptionState == DESCRIPTION_STATE) {
 			view.setVisibility(View.INVISIBLE);
-			map.setVisibility(View.INVISIBLE);
 			descriptionState = EMPTY_STATE;
 		}
 		else {
@@ -248,20 +239,25 @@ public class PhotoDetailsActivity extends BaseActivity{
 	    		Log.d("null? ", (s == null) + "");
 	    		Log.d("jsonarray value: ", s);
 	    		
-//				JSONArray ja = new JSONArray(s);
-//				
-//				for (int i = 0; i < ja.length(); i++) {
-//					JSONObject c = ja.getJSONObject(i);
-//	
-//		            String body = c.getString("body");
-//		            int user_id = Integer.parseInt(c.getString("user_id"));
-//		            String user_name = nameLookup[user_id - 1];
-//					
-//		            c_adapter.add(new Comment(user_id, user_name, body));
-//				}
-//				c_adapter.notifyDataSetChanged();
-//				
-//	  
+				JSONArray ja = new JSONArray(s);
+				
+				if (ja.length() > 1) {
+					Log.d("ERROR!", "SHOULD ONLY HAVE ONE NOTE PER PHOTO");
+				}
+				
+				JSONObject c = ja.getJSONObject(0);
+
+	            String body = c.getString("body");
+	            int user_id = Integer.parseInt(c.getString("user_id"));
+	            String user_name = nameLookup[user_id - 1];
+				
+	            ImageView profile = (ImageView) findViewById(R.id.profile_pic);
+	            setProfilePicture(profile, user_id);
+	            
+	            TextView textOverlay = (TextView) findViewById(R.id.textOverlay);
+	            Log.d("textOverlay value", body);
+	            textOverlay.setText(user_name + "\n" + body);
+	  
 			}
 			catch (Exception e) {
 				e.printStackTrace();

@@ -16,4 +16,6 @@
     <string name="title_activity_my_photos">My Photos</string>
     <string name="title_activity_user_photos">User Photos</string>
     <string name="searchstring">Search by Location</string>
+    <string name="title_activity_edit_note">Update Description</string>
+
 </resources>

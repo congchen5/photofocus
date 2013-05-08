@@ -23,75 +23,69 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.app.ListActivity;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class CommentActivity extends BaseActivity {
-	
+public class EditNoteActivity extends BaseActivity {
 	private int photoID;
-	private CommentAdapter c_adapter;
-	private ArrayList<Comment> comments;
-	private Context context;
-	private ListView listComments;
-	
+
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_comment);
-	    
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_edit_note);
+		
 	    Bundle extras = getIntent().getExtras();
 	    if (extras != null) {
 	        photoID = extras.getInt("photoId");
 	        //comments = extras.getStringArrayList("comments");
 	    }
 	    
-	    listComments = (ListView) findViewById(R.id.commentList);
-	    comments = new ArrayList<Comment>();
+	    // get the notes
+	 	String httpGetAddOn = "/notes?photo_id=" + photoID;
+		getNotes request2 = new getNotes(this, photoID);
+		request2.execute(httpGetAddOn);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.edit_note, menu);
+		return true;
+	}
+	
+	public void updateNote(View v) {
+		Log.d("updateNote", "called");
+		EditText e = (EditText) findViewById(R.id.editNote);
+		sendPostNote(e.getText().toString(), photoID + "");
+		e.setText("");
 		
-	    this.c_adapter = new CommentAdapter(this, R.layout.comment_list_item, comments);
-	    listComments.setAdapter(c_adapter);
-        
-        context = this;
-        updateComments();
+		Intent intent = new Intent(this, MyPhotosActivity.class);
+		intent.putExtra("photoId", photoID);
+		startActivity(intent);
 	}
 	
-	// Gets the newest comments from the server
-	public void updateComments() {
-		c_adapter.clear();
-        // Get the list of comments for this photo
-	 	String httpGetAddOn = "/comments?photo_id=" + photoID;
-		getComments request = new getComments(this, 1);
-		request.execute(httpGetAddOn);
+	public void cancelNoteUpdate(View v) {
+		Log.d("cancelNoteUpdate", "called");
+		finish();
 	}
 	
-	private class getComments extends AsyncTask<String, Object, String> {
+	private class getNotes extends AsyncTask<String, Object, String> {
     	public final static String AUTH_TOKEN = "cc0a0942c97e1c1e7c4eb4f2af8c70b1375557d9";	//kate's auth token
     	private final static String EC2_URL = MapPhotoActivity.EC2_URL;
-    	private CommentActivity thisActivity;
+    	private EditNoteActivity thisActivity;
     	private int currentUserID;
 		private ProgressDialog dialog;
     	
-    	public getComments(CommentActivity thisAct, int curUserId){
+    	public getNotes(EditNoteActivity thisAct, int curUserId){
     		thisActivity = thisAct;
     		currentUserID = curUserId;
     	}
@@ -105,9 +99,9 @@ public class CommentActivity extends BaseActivity {
 	    }
 		
     	protected String doInBackground(String ...params) {
-	    	Log.d("getComments", "called");
+	    	Log.d("getNotes", "called");
 	    	String thisURL = EC2_URL + params[0];
-	    	Log.d("getComments", "params[0]: " + params[0] );
+	    	Log.d("getNotes", "params[0]: " + params[0] );
 	    	URL url = null;
 	    	try {
 	    		url = new URL(thisURL);
@@ -116,10 +110,11 @@ public class CommentActivity extends BaseActivity {
 	    	}
 	    	HttpURLConnection urlConnection = null;
 	    	try {
+	
 	    		urlConnection = (HttpURLConnection) url.openConnection();
 	    		urlConnection.setRequestProperty("auth_token", AUTH_TOKEN);
 	    		urlConnection.setRequestMethod("GET");
-	    		Log.d("getComments", "url connection made");
+	    		Log.d("getNotes", "url connection made");
 	    	} catch (IOException e) {
 	    		e.printStackTrace();
 	    	}
@@ -127,7 +122,7 @@ public class CommentActivity extends BaseActivity {
 	    	InputStream in= null;
 	    	try{
 	    		in = new BufferedInputStream(urlConnection.getInputStream());
-	    		Log.d("getComments", "got input stream");
+	    		Log.d("getNotes", "got input stream");
 	    	} catch (IOException e) {
 	    		e.printStackTrace();
 	    	}
@@ -159,51 +154,47 @@ public class CommentActivity extends BaseActivity {
 	            dialog.dismiss();
 	        }
 			try {
-				JSONArray ja = new JSONArray(s);
 				
-				for (int i = 0; i < ja.length(); i++) {
-					JSONObject c = ja.getJSONObject(i);
-	
-		            String body = c.getString("body");
-		            int user_id = Integer.parseInt(c.getString("user_id"));
-		            String user_name = nameLookup[user_id - 1];
-					
-		            c_adapter.add(new Comment(user_id, user_name, body));
-				}
-				c_adapter.notifyDataSetChanged();
-				
-	    		super.onPostExecute(s);
+		  		super.onPostExecute(s);
 	    		Log.d("onPostExecute", "called");
 	    		Log.d("null? ", (s == null) + "");
 	    		Log.d("jsonarray value: ", s);
+	    		
+	    		if (s != null) {
+					JSONArray ja = new JSONArray(s);
+					
+					if (ja.length() > 1) {
+						Log.d("ERROR!", "SHOULD ONLY HAVE ONE NOTE PER PHOTO");
+					}
+					
+					JSONObject c = ja.getJSONObject(0);
+	
+		            String body = c.getString("body");
+		            int user_id = Integer.parseInt(c.getString("user_id"));
+		            
+		            TextView textOverlay = (TextView) findViewById(R.id.editNote);
+		            textOverlay.setText(body);
+	    		}
 			}
 			catch (Exception e) {
 				e.printStackTrace();
 			}
     	}
     }
-    
-	public void submitComment(View v) {
-		EditText e = (EditText) findViewById(R.id.commentText);
-		
-		sendPostComment(e.getText().toString(), photoID + "");
-		e.setText("");	
-		updateComments();
+	
+	private void sendPostNote(String body, String photo_id) {
+	    postNote postNoteAsyncTask = new postNote(this, 1);
+	    postNoteAsyncTask.execute(body, photo_id);
 	}
 	
-	private void sendPostComment(String body, String photo_id) {
-	    postComments postCommentsAsyncTask = new postComments(this, 1);
-	    postCommentsAsyncTask.execute(body, photo_id);
-	}
-		
-	private class postComments extends AsyncTask<String, Void, String> {
+	private class postNote extends AsyncTask<String, Void, String> {
     	public final static String AUTH_TOKEN = "cc0a0942c97e1c1e7c4eb4f2af8c70b1375557d9";	//kate's auth token
     	private final static String EC2_URL = MapPhotoActivity.EC2_URL;
-    	private CommentActivity thisActivity;
+    	private EditNoteActivity thisActivity;
     	private int currentUserID;
 		private ProgressDialog dialog;
 		
-    	public postComments(CommentActivity thisAct, int curUserId){
+    	public postNote(EditNoteActivity thisAct, int curUserId){
     		thisActivity = thisAct;
     		currentUserID = curUserId;
     	}
@@ -225,7 +216,7 @@ public class CommentActivity extends BaseActivity {
 	    	System.out.println("*** doInBackground *** paramBody: " + paramBody + " paramPhotoId: " + paramPhotoId);
 	    	
             HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(EC2_URL + "/comments");
+            HttpPost httpPost = new HttpPost(EC2_URL + "/notes");
             
 
             BasicNameValuePair bodyBasicNameValuePair = new BasicNameValuePair("body", paramBody);
@@ -283,44 +274,7 @@ public class CommentActivity extends BaseActivity {
 	            dialog.dismiss();
 	        }
         	super.onPostExecute(result);
-            
-
-//            if(result.equals("working")){
-//                Toast.makeText(getApplicationContext(), "HTTP POST is working...", Toast.LENGTH_LONG).show();
-//            }else{
-//                Toast.makeText(getApplicationContext(), "Invalid POST req...", Toast.LENGTH_LONG).show();
-//            }
         }    
     }
 
-	private class CommentAdapter extends ArrayAdapter<Comment> {
-		private List<Comment> comments;
-		private LayoutInflater vi;
-		public CommentAdapter(Context context, int textViewResourceId, List<Comment> comments) {
-			super(context, textViewResourceId, comments);
-			vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            this.comments = comments;
-		}
-		
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			View v = convertView;
-			if (v == null) {
-				v = vi.inflate(
-						R.layout.comment_list_item, null);
-			}
-			Comment c = comments.get(position);
-			if (c != null) {
-				TextView un = (TextView) v.findViewById(R.id.user_name);
-				TextView ub = (TextView) v.findViewById(R.id.user_body);
-				if (un != null) {
-					un.setText(c.getName());
-				}
-				if (ub != null) {
-					ub.setText(c.getBody());
-				}
-			}
-			return v;
-		}
-	}
 }
